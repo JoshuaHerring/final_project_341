@@ -6,6 +6,7 @@ GET http://localhost:8080/notes HTTP/1.1
 # Get workout by Id
 GET http://localhost:8080/notes/640a0098dff6b09a8b94ee1b
 
+
 ###
 # Create new workout
 POST http://localhost:8080/notes HTTP/1.1
