@@ -7,11 +7,13 @@ const notesController = require('../controllers/notes');
 // eslint-disable-next-line no-undef
 router.get('/', notesController.getAll);
 
-// // eslint-disable-next-line no-undef
-// router.get('/:id', jobsController.getSingle);
+// eslint-disable-next-line no-undef
+router.get('/:id', notesController.getSingle);
 
 // // eslint-disable-next-line no-undef
 // router.post('/', validation.saveJob, jobsController.createJob);
+router.post('/:id', notesController.createNote);
+
 
 // // eslint-disable-next-line no-undef
 // router.put('/:id', validation.saveJob, jobsController.updateJob);

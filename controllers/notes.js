@@ -18,46 +18,46 @@ const getAll = (req, res) => {
     });
 };
 
-// const getSingle = (req, res) => {
-//   if (!ObjectId.isValid(req.params.id)) {
-//     res.status(400).json('Must use a valid job id to find a job.');
-//   }
-//   const userId = new ObjectId(req.params.id);
-//   mongodb
-//     .getDb()
-//     .db()
-//     .collection('jobs')
-//     .find({
-//       _id: userId
-//     })
-//     .toArray((err, result) => {
-//       if (err) {
-//         res.status(400).json({
-//           message: err
-//         });
-//       }
-//       res.setHeader('Content-Type', 'application/json');
-//       res.status(200).json(result[0]);
-//     });
-// };
+const getSingle = (req, res) => {
+  if (!ObjectId.isValid(req.params.id)) {
+    res.status(400).json('Must use a valid job id to find a job.');
+  }
+  const userId = new ObjectId(req.params.id);
+  mongodb
+    .getDb()
+    .db()
+    .collection('notes')
+    .find({
+      _id: userId
+    })
+    .toArray((err, result) => {
+      if (err) {
+        res.status(400).json({
+          message: err
+        });
+      }
+      res.setHeader('Content-Type', 'application/json');
+      res.status(200).json(result[0]);
+    });
+};
 
-// const createJob = async (req, res) => {
-//   const job = {
-//     status: req.body.status,
-//     company: req.body.company,
-//     title: req.body.title,
-//     position: req.body.position,
-//     level: req.body.level,
-//     YearsOfExperience: req.body.YearsOfExperience,
-//     createdAt: req.body.createdAt
-//   };
-//   const response = await mongodb.getDb().db().collection('jobs').insertOne(job);
-//   if (response.acknowledged) {
-//     res.status(201).json(response);
-//   } else {
-//     res.status(500).json(response.error || 'Some error occurred while creating the job.');
-//   }
-// };
+const createNote = async (req, res) => {
+  const note = {
+    userId: req.body.userId,
+    title: req.body.title,
+    createDate: req.body.createDate,
+    updateDate: req.body.updateDate,
+    classification: req.body.classification,
+    completed: req.body.completed,
+    content: req.body.content
+  };
+  const response = await mongodb.getDb().db().collection('notes').insertOne(note);
+  if (response.acknowledged) {
+    res.status(201).json(response);
+  } else {
+    res.status(500).json(response.error || 'Some error occurred while creating the note.');
+  }
+};
 
 // const updateJob = async (req, res) => {
 //   if (!ObjectId.isValid(req.params.id)) {
@@ -106,9 +106,9 @@ const getAll = (req, res) => {
 // };
 
 module.exports = {
-  getAll
-  // getSingle,
-  // createJob,
+  getAll,
+  getSingle,
+  createNote
   // updateJob,
   // deleteJob
 };
