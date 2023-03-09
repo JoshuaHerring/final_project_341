@@ -1,9 +1,11 @@
-const routes = require("express").Router();
+const express = require('express');
+const router = express.Router();
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('../swagger.json');
 
+router.use('/api-docs', swaggerUi.serve);
+router.get('/api-docs', swaggerUi.setup(swaggerDocument));
+//router.use('/', require('./swagger'));
+router.use('/jobs', require('./jobs'));
 
-
-
-routes.use("/hello", ()=> console.log("Hello World"));
-
-
-module.exports = routes;
+module.exports = router;
